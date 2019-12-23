@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_record.view.*
 
 
 class MyRecordRecyclerViewAdapter(
-    private val mValues: List<Note>,
+    private val mValues: MutableList<Note>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyRecordRecyclerViewAdapter.ViewHolder>() {
 
@@ -22,11 +22,16 @@ class MyRecordRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as Note
+            val (item, position) = v.tag as Pair<Note, Int>
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
+            mListener?.onListFragmentInteraction(position, item)
         }
+    }
+
+    fun setNote(position: Int, note: Note) {
+        mValues[position] = note
+        notifyItemChanged(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +47,7 @@ class MyRecordRecyclerViewAdapter(
         holder.mTagsView.text = item.tags.joinToString(", ")
 
         with(holder.mView) {
-            tag = item
+            tag = item to position
             setOnClickListener(mOnClickListener)
         }
     }

@@ -1,6 +1,8 @@
 package com.example.softwaredesign_lab3
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,22 +14,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.softwaredesign_lab3.Data.Note
 
+private const val NOTE_KEY = "note"
+private const val POSITION_KEY = "position"
+private const val NOTE_REQUEST = 42
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [RecordFragment.OnListFragmentInteractionListener] interface.
- */
 class RecordFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
+    private var listAdapter: MyRecordRecyclerViewAdapter? = null
 
-    private var listener: OnListFragmentInteractionListener? = null
+    private var listener = object : OnListFragmentInteractionListener {
+        override fun onListFragmentInteraction(position: Int, item: Note?) {
+            startNoteActivity(this@RecordFragment, NOTE_REQUEST, position, item)
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -46,47 +51,27 @@ class RecordFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyRecordRecyclerViewAdapter(listOf(
-                    Note("qew", "qwer", emptyList()),
-                    Note("qehgvhjw", "qwehgyjr", listOf("1", "@"))
-                ), listener)
+                listAdapter = MyRecordRecyclerViewAdapter(
+                    mutableListOf(
+                        Note("qew", "qwer", emptyList()),
+                        Note("qehgvhjw", "qwehgyjr", listOf("1", "@"))
+                    ), listener
+                )
+                adapter = listAdapter
                 addItemDecoration(
-                    DividerItemDecoration(context,
+                    DividerItemDecoration(
+                        context,
                         DividerItemDecoration.VERTICAL
-                    ))
+                    )
+                )
             }
         }
         return view
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnListFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson
-     * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: Note?)
+        fun onListFragmentInteraction(position: Int, item: Note?)
     }
 
     companion object {
@@ -103,4 +88,21 @@ class RecordFragment : Fragment() {
                 }
             }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            when (requestCode) {
+                NOTE_REQUEST -> {
+                    val position = data.getIntExtra(POSITION_KEY, -1)
+                    val note = data.getParcelableExtra<Note>(NOTE_KEY)!!
+                    listAdapter?.setNote(position, note)
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+}
+
+fun createResultForRecordFragment(position: Int, note: Note): Intent {
+    return Intent().putExtra(NOTE_KEY, note).putExtra(POSITION_KEY, position)
 }

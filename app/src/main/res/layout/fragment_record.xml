@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/gray"
+        android:textColor="@color/darkGray"
         android:textSize="12sp" />
 
     <TextView
@@ -30,6 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/gray"
+        android:textColor="@color/darkGray"
         android:textSize="12sp" />
 </LinearLayout>

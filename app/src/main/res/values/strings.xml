@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SoftwareDesign-Lab3</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
