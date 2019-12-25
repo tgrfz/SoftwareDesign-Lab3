@@ -1,24 +1,21 @@
 package com.example.softwaredesign_lab3
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toolbar
-import androidx.appcompat.widget.ButtonBarLayout
 import androidx.fragment.app.Fragment
 import com.example.softwaredesign_lab3.Data.Note
 import kotlinx.android.synthetic.main.activity_note.*
-import java.util.*
+import java.time.LocalDateTime
 
 private const val NOTE_KEY = "note"
 private const val POSITION_KEY = "position"
 
 class NoteActivity : AppCompatActivity() {
 
-    private var date: Date? = null
+    private var date: LocalDateTime? = null
     private var position: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +37,7 @@ class NoteActivity : AppCompatActivity() {
                     titleEdit.text.toString(),
                     contentEdit.text.toString(),
                     emptyList(),
-                    date ?: Date()
+                    date ?: LocalDateTime.now()
                 )
             )
         )
@@ -58,5 +55,4 @@ fun startNoteActivity(frg: Fragment, code: Int, position: Int, note: Note?) {
         .putExtra(NOTE_KEY, note).putExtra(POSITION_KEY, position)
 
     frg.startActivityForResult(intent, code)
-
 }

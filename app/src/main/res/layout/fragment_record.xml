@@ -6,30 +6,30 @@
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
-    android:padding="5dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:padding="16dp"
+    android:paddingTop="12dp">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/darkGray"
-        android:textSize="12sp" />
+        android:textColor="@color/grayText"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tags"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@color/darkGray"
-        android:textSize="12sp" />
+        android:textColor="@color/grayText"
+        android:textSize="14sp" />
 </LinearLayout>

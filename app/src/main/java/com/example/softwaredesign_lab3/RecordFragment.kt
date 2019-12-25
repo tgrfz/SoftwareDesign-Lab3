@@ -1,7 +1,6 @@
 package com.example.softwaredesign_lab3
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.softwaredesign_lab3.Data.Note
@@ -20,8 +18,6 @@ private const val NOTE_REQUEST = 42
 
 class RecordFragment : Fragment() {
 
-    // TODO: Customize parameters
-    private var columnCount = 1
     private var listAdapter: MyRecordRecyclerViewAdapter? = null
 
     private var listener = object : OnListFragmentInteractionListener {
@@ -29,13 +25,6 @@ class RecordFragment : Fragment() {
             startNoteActivity(this@RecordFragment, NOTE_REQUEST, position, item)
         }
 
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
     }
 
     override fun onCreateView(
@@ -47,10 +36,7 @@ class RecordFragment : Fragment() {
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
+                layoutManager = LinearLayoutManager(context)
                 listAdapter = MyRecordRecyclerViewAdapter(
                     mutableListOf(
                         Note("qew", "qwer", emptyList()),
@@ -70,23 +56,7 @@ class RecordFragment : Fragment() {
     }
 
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onListFragmentInteraction(position: Int, item: Note?)
-    }
-
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            RecordFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
