@@ -33,6 +33,13 @@
         android:id="@+id/main_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        android:layout_gravity="start">
+
+        <fragment
+            android:id="@+id/tags_fragment"
+            android:name="com.example.softwaredesign_lab3.TagFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
 

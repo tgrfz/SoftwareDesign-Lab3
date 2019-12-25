@@ -33,14 +33,13 @@ class RecordFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_record_list, container, false)
 
-        // Set the adapter
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = LinearLayoutManager(context)
                 listAdapter = MyRecordRecyclerViewAdapter(
                     mutableListOf(
-                        Note("qew", "qwer", emptyList()),
-                        Note("qehgvhjw", "qwehgyjr", listOf("1", "@"))
+                        Note("qew", "qwer", listOf("#tag1")),
+                        Note("qehgvhjw", "qwehgyjr", listOf("#tag1", "#tag2"))
                     ), listener
                 )
                 adapter = listAdapter
