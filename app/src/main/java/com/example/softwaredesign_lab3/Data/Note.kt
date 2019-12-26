@@ -8,9 +8,9 @@ import java.time.LocalDateTime
 data class Note(
     var title: String,
     var content: String,
-    var tags: List<String>,
+    var tags: MutableList<String>,
     val date: LocalDateTime = LocalDateTime.now()
 ) : Parcelable {
 
-    constructor() : this("", "", emptyList())
+    constructor() : this("", "", mutableListOf())
 }

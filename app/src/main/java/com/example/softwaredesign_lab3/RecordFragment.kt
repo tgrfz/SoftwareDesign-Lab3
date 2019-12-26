@@ -1,6 +1,7 @@
 package com.example.softwaredesign_lab3
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,12 +21,7 @@ class RecordFragment : Fragment() {
 
     private var listAdapter: MyRecordRecyclerViewAdapter? = null
 
-    private var listener = object : OnListFragmentInteractionListener {
-        override fun onListFragmentInteraction(position: Int, item: Note?) {
-            startNoteActivity(this@RecordFragment, NOTE_REQUEST, position, item)
-        }
-
-    }
+    private var listener: OnListFragmentInteractionListener?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +34,8 @@ class RecordFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 listAdapter = MyRecordRecyclerViewAdapter(
                     mutableListOf(
-                        Note("qew", "qwer", listOf("#tag1")),
-                        Note("qehgvhjw", "qwehgyjr", listOf("#tag1", "#tag2"))
+                        Note("qew", "qwer", mutableListOf("tag1")),
+                        Note("qehgvhjw", "qwehgyjr", mutableListOf("tag1", "tag2"))
                     ), listener
                 )
                 adapter = listAdapter
@@ -52,6 +48,20 @@ class RecordFragment : Fragment() {
             }
         }
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnListFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     interface OnListFragmentInteractionListener {

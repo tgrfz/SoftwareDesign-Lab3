@@ -6,8 +6,8 @@
     android:name="com.example.softwaredesign_lab3.TagFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
-    android:paddingStart="16dp"
+    android:background="?android:colorBackground"
     app:layoutManager="LinearLayoutManager"
     tools:context=".TagFragment"
-    tools:listitem="@layout/fragment_tag" />
+    tools:listitem="@layout/fragment_tag"
+    tools:ignore="PrivateResource" />

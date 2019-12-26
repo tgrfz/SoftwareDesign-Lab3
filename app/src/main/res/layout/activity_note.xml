@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:actionBarNavMode="list"
+    android:id="@+id/note_drawer"
     tools:context=".NoteActivity">
 
     <LinearLayout
         android:id="@+id/layoutNote"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/titleEdit"
@@ -31,7 +31,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/lightGray" />
+            android:background="@color/divider" />
 
         <EditText
             android:id="@+id/contentEdit"
@@ -56,7 +56,7 @@
             android:orientation="horizontal">
 
             <Button
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onSaveClick"
@@ -67,7 +67,7 @@
                 android:layout_height="match_parent" />
 
             <Button
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="onCancelClick"
@@ -76,9 +76,12 @@
 
     </LinearLayout>
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/note_navigation_view"
+    <fragment
+        android:id="@+id/note_tags_fragment"
+        android:name="com.example.softwaredesign_lab3.TagFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="end" />
+        android:layout_gravity="end"
+        android:choiceMode="multipleChoice" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

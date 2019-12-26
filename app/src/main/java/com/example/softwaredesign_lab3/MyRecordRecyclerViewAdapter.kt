@@ -48,7 +48,9 @@ class MyRecordRecyclerViewAdapter(
         val item = mValues[position]
         holder.mTitleView.text = item.title
         holder.mDateView.text = item.date.format(formatter)
-        holder.mTagsView.text = item.tags.joinToString(", ")
+        holder.mTagsView.text = item.tags.joinToString(", #")
+        if (holder.mTagsView.text != "")
+            holder.mTagsView.text = "#".plus(holder.mTagsView.text)
 
         with(holder.mView) {
             tag = item to position
