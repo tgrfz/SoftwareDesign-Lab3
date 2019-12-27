@@ -78,7 +78,7 @@
 
     <fragment
         android:id="@+id/note_tags_fragment"
-        android:name="com.example.softwaredesign_lab3.TagFragment"
+        android:name="com.example.softwaredesign_lab3.notetags.TagFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"

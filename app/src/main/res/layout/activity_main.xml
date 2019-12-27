@@ -37,7 +37,7 @@
 
         <fragment
             android:id="@+id/all_tags_fragment"
-            android:name="com.example.softwaredesign_lab3.TagFragment"
+            android:name="com.example.softwaredesign_lab3.alltags.AllTagFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice" />

@@ -8,6 +8,6 @@
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".notetags.TagFragment"
+    tools:context=".alltags.AllTagFragment"
     tools:listitem="@layout/fragment_tag"
     tools:ignore="PrivateResource" />

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.softwaredesign_lab3.Data.Note
+import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.RecordFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_record.view.*
 import java.time.format.DateTimeFormatter
@@ -18,11 +18,19 @@ class MyRecordRecyclerViewAdapter(
     private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
     private val mOnClickListener: View.OnClickListener
 
+    private var curTag: String? = null
+
     init {
         mOnClickListener = View.OnClickListener { v ->
             val (item, position) = v.tag as Pair<Note, Int>
             mListener?.onListFragmentInteraction(position, item)
         }
+    }
+
+    fun setTag(notes: List<Note>) {
+        mValues.clear()
+        mValues.addAll(notes)
+        notifyDataSetChanged()
     }
 
     fun setNote(position: Int, note: Note) {
@@ -33,9 +41,10 @@ class MyRecordRecyclerViewAdapter(
             mValues.add(note)
             notifyDataSetChanged()
         } else {
-            mValues[position] = note
+            mValues[position].update(note)
             notifyItemChanged(position)
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

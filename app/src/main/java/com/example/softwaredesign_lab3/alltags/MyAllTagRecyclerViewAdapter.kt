@@ -1,4 +1,4 @@
-package com.example.softwaredesign_lab3
+package com.example.softwaredesign_lab3.alltags
 
 import android.graphics.Color
 import androidx.recyclerview.widget.RecyclerView
@@ -6,38 +6,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.util.toAndroidPair
-import com.example.softwaredesign_lab3.Data.Tag
+import com.example.softwaredesign_lab3.R
+import com.example.softwaredesign_lab3.model.Tag
 import kotlinx.android.synthetic.main.fragment_tag.view.*
 
-class MyTagRecyclerViewAdapter(
+class MyAllTagRecyclerViewAdapter(
     private val mValues: MutableList<Tag>,
-    private val mListener: TagFragment.OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyTagRecyclerViewAdapter.ViewHolder>() {
+    private val mListener: AllTagFragment.OnListFragmentInteractionListener?
+) : RecyclerView.Adapter<MyAllTagRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
-    private val mOnLongClickListener: View.OnLongClickListener
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            mListener?.onListFragmentClick(v)
-        }
-        mOnLongClickListener = View.OnLongClickListener { v ->
             val item = v.tag as Tag
-            mListener!!.onListFragmentLongClick(item)
+            mValues.forEach { it.selected = false }
+            item.selected = true
+            notifyDataSetChanged()
+            mListener?.onListFragmentClick(item)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_tag, parent, false)
+            .inflate(R.layout.fragment_all_tag, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.mTagView.text = item.name
-        holder.mView.setBackgroundColor(if (item.selected) Color.GRAY else Color.WHITE)
+        holder.mView.setBackgroundColor(if (item.selected) Color.GRAY else android.R.attr.colorBackground)
+        holder.mTagView.setTextColor(if (item.selected) Color.WHITE else Color.BLACK)
         with(holder.mView) {
             tag = item
             setOnClickListener(mOnClickListener)

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.softwaredesign_lab3.Data.Note
+import com.example.softwaredesign_lab3.model.Note
 
 private const val NOTE_KEY = "note"
 private const val POSITION_KEY = "position"
@@ -23,20 +23,24 @@ class RecordFragment : Fragment() {
 
     private var listener: OnListFragmentInteractionListener?= null
 
+    private val allNotes = listOf(
+        Note("qew", "qwer", mutableListOf("tag1")),
+        Note("qehgvhjw", "qwehgyjr", mutableListOf("tag1", "tag2"))
+    )
+    private var curTag: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+//      TODO  context.getSharedPreferences()
         val view = inflater.inflate(R.layout.fragment_record_list, container, false)
 
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = LinearLayoutManager(context)
                 listAdapter = MyRecordRecyclerViewAdapter(
-                    mutableListOf(
-                        Note("qew", "qwer", mutableListOf("tag1")),
-                        Note("qehgvhjw", "qwehgyjr", mutableListOf("tag1", "tag2"))
-                    ), listener
+                    allNotes.toMutableList(), listener
                 )
                 adapter = listAdapter
                 addItemDecoration(
@@ -57,6 +61,14 @@ class RecordFragment : Fragment() {
         } else {
             throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
         }
+
+    }
+
+    fun setNoteTag(tag: String?) {
+        curTag = tag
+        tag?.let {
+            listAdapter?.setTag(allNotes.filter { tag in it.tags })
+        } ?: listAdapter?.setTag(allNotes)
     }
 
     override fun onDetach() {
@@ -75,6 +87,7 @@ class RecordFragment : Fragment() {
                     val position = data.getIntExtra(POSITION_KEY, -1)
                     val note = data.getParcelableExtra<Note>(NOTE_KEY)!!
                     listAdapter?.setNote(position, note)
+                    setNoteTag(curTag)
                 }
             }
         }

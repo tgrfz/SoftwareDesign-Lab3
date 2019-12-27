@@ -5,11 +5,11 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.softwaredesign_lab3.Data.Note
-import com.example.softwaredesign_lab3.Data.Tag
+import com.example.softwaredesign_lab3.model.Note
+import com.example.softwaredesign_lab3.model.Tag
+import com.example.softwaredesign_lab3.notetags.TagFragment
 import kotlinx.android.synthetic.main.activity_note.*
 import java.time.LocalDateTime
 
@@ -32,6 +32,7 @@ class NoteActivity : AppCompatActivity(), TagFragment.OnListFragmentInteractionL
             this@NoteActivity.date = date
             this@NoteActivity.tags = tags
         }
+        (note_tags_fragment as TagFragment).update(tags)
     }
 
     fun onSaveClick(view: View) {
@@ -54,20 +55,12 @@ class NoteActivity : AppCompatActivity(), TagFragment.OnListFragmentInteractionL
         finish()
     }
 
-    override fun onListFragmentClick(view: View) {
-        val item = view.tag as Tag
-        item.selected = !item.selected
-        view.setBackgroundColor(if (item.selected) Color.GRAY else Color.WHITE)
+    override fun onListFragmentClick(item: Tag) {
         if (item.selected) {
             tags.add(item.name)
         } else {
             tags.remove(item.name)
         }
-    }
-
-    override fun onListFragmentLongClick(item: Tag): Boolean {
-        //TODO
-        return true
     }
 }
 

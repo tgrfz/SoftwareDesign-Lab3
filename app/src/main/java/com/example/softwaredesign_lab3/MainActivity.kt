@@ -2,16 +2,15 @@ package com.example.softwaredesign_lab3
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.ViewParent
-import com.example.softwaredesign_lab3.Data.Note
-import com.example.softwaredesign_lab3.Data.Tag
+import com.example.softwaredesign_lab3.alltags.AllTagFragment
+import com.example.softwaredesign_lab3.model.Note
+import com.example.softwaredesign_lab3.model.Tag
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val NOTE_REQUEST = 42
 
-class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteractionListener, TagFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteractionListener, AllTagFragment.OnListFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +25,8 @@ class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteracti
         startNoteActivity(this.notes_fragment, NOTE_REQUEST, position, item)
     }
 
-    override fun onListFragmentClick(view: View) {
-        //TODO
-        Log.println(Log.INFO, "Click", "MainActivity")
-
+    override fun onListFragmentClick(item: Tag) {
+        (notes_fragment as RecordFragment).setNoteTag(item.name)
     }
 
-    override fun onListFragmentLongClick(item: Tag): Boolean {
-        //TODO
-        return true
-    }
 }

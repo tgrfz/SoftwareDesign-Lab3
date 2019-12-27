@@ -1,4 +1,4 @@
-package com.example.softwaredesign_lab3.Data
+package com.example.softwaredesign_lab3.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -13,4 +13,10 @@ data class Note(
 ) : Parcelable {
 
     constructor() : this("", "", mutableListOf())
+
+    fun update(note: Note) {
+        title = note.title
+        content = note.content
+        tags = note.tags
+    }
 }
