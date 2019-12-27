@@ -1,13 +1,11 @@
 package com.example.softwaredesign_lab3
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.core.view.GravityCompat
 import com.example.softwaredesign_lab3.alltags.AllTagFragment
 import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.model.Tag
@@ -21,6 +19,24 @@ class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteracti
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var toolbar = findViewById<Toolbar>(R.id.app_bar_main)
+
+        setSupportActionBar(toolbar)
+        val actionBar = supportActionBar
+        actionBar?.title = "Notes"
+
+        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+            this,
+            main_drawer,
+            toolbar,
+            R.string.drawer_open,
+            R.string.drawer_close
+        ) {}
+
+        drawerToggle.isDrawerIndicatorEnabled = true
+        main_drawer.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
     }
 
     fun onAddClick(view: View) {
@@ -33,6 +49,7 @@ class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteracti
 
     override fun onListFragmentClick(item: Tag) {
         (notes_fragment as RecordFragment).setNoteTag(item.name)
+        main_drawer.closeDrawer(GravityCompat.START)
     }
 
 }

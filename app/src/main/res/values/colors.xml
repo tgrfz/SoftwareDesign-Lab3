@@ -5,4 +5,5 @@
     <color name="colorAccent">@color/design_default_color_primary</color>
     <color name="grayText">#99000000</color>
     <color name="divider">#1e000000</color>
+    <color name="white">#ffffff</color>
 </resources>
