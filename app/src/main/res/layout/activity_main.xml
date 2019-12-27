@@ -30,17 +30,13 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <com.google.android.material.navigation.NavigationView
+    <fragment
+        android:id="@+id/all_tags_fragment"
+        android:name="com.example.softwaredesign_lab3.alltags.AllTagFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:background="?android:colorBackground" />
 
-        <fragment
-            android:id="@+id/all_tags_fragment"
-            android:name="com.example.softwaredesign_lab3.alltags.AllTagFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice" />
-    </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
 

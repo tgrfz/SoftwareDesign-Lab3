@@ -16,21 +16,20 @@ class AllTagFragment : Fragment() {
     private var listAdapter: MyAllTagRecyclerViewAdapter? = null
 
     private var listener: OnListFragmentInteractionListener? = null
-    //if (this@TagFragment.context?.resources?.getResourceEntryName((parentView as View).id) == "main_drawer") {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_all_tag_list, container, false)
-
+        val tagList = listOf("tag1", "tag2").map { Tag(it, false) }.toMutableList()
+        tagList.add(0, Tag(null, true))
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = LinearLayoutManager(context)
                 listAdapter =
                     MyAllTagRecyclerViewAdapter(
-                        listOf("tag1", "tag2").map { Tag(it, false) }.toMutableList(),
+                        tagList,
                         listener
                     )
                 adapter = listAdapter
@@ -46,7 +45,6 @@ class AllTagFragment : Fragment() {
         } else {
             throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
         }
-
     }
 
     override fun onDetach() {

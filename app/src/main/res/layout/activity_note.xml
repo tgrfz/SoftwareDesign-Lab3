@@ -81,7 +81,6 @@
         android:name="com.example.softwaredesign_lab3.notetags.TagFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:choiceMode="multipleChoice" />
+        android:layout_gravity="end" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

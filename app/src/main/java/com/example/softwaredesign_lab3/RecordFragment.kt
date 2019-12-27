@@ -21,7 +21,7 @@ class RecordFragment : Fragment() {
 
     private var listAdapter: MyRecordRecyclerViewAdapter? = null
 
-    private var listener: OnListFragmentInteractionListener?= null
+    private var listener: OnListFragmentInteractionListener? = null
 
     private val allNotes = listOf(
         Note("qew", "qwer", mutableListOf("tag1")),

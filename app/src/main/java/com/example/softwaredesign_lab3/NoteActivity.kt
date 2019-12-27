@@ -57,7 +57,7 @@ class NoteActivity : AppCompatActivity(), TagFragment.OnListFragmentInteractionL
 
     override fun onListFragmentClick(item: Tag) {
         if (item.selected) {
-            tags.add(item.name)
+            tags.add(item.name!!)
         } else {
             tags.remove(item.name)
         }

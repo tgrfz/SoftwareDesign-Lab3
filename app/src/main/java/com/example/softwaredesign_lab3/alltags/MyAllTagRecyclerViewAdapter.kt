@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Tag
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_tag.view.*
 
 class MyAllTagRecyclerViewAdapter(
@@ -35,7 +36,7 @@ class MyAllTagRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mTagView.text = item.name
+        holder.mTagView.text = item.name ?: "All tags"
         holder.mView.setBackgroundColor(if (item.selected) Color.GRAY else android.R.attr.colorBackground)
         holder.mTagView.setTextColor(if (item.selected) Color.WHITE else Color.BLACK)
         with(holder.mView) {

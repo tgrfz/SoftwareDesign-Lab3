@@ -9,5 +9,5 @@
     android:background="?android:colorBackground"
     app:layoutManager="LinearLayoutManager"
     tools:context=".notetags.TagFragment"
-    tools:listitem="@layout/fragment_tag"
-    tools:ignore="PrivateResource" />
+    tools:ignore="PrivateResource"
+    tools:listitem="@layout/fragment_tag" />
