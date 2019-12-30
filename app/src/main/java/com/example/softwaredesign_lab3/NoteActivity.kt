@@ -3,14 +3,13 @@ package com.example.softwaredesign_lab3
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.model.Tag
+import com.example.softwaredesign_lab3.notes.createResultForRecordFragment
 import com.example.softwaredesign_lab3.notetags.TagFragment
 import kotlinx.android.synthetic.main.activity_note.*
 import java.time.LocalDateTime
@@ -64,7 +63,8 @@ class NoteActivity : AppCompatActivity(), TagFragment.OnListFragmentInteractionL
 
     fun onSaveClick(view: View) {
         setResult(
-            RESULT_OK, createResultForRecordFragment(
+            RESULT_OK,
+            createResultForRecordFragment(
                 position,
                 Note(
                     titleEdit.text.toString(),

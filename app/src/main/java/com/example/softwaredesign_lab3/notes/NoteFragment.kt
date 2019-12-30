@@ -1,4 +1,4 @@
-package com.example.softwaredesign_lab3
+package com.example.softwaredesign_lab3.notes
 
 import android.app.Activity
 import android.content.Context
@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Note
+import java.time.format.DateTimeFormatter
 
 private const val NOTE_KEY = "note"
 private const val POSITION_KEY = "position"
@@ -19,11 +21,12 @@ private const val NOTE_REQUEST = 42
 
 class RecordFragment : Fragment() {
 
-    private var listAdapter: MyRecordRecyclerViewAdapter? = null
+    private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+    private var listAdapter: MyNoteRecyclerViewAdapter? = null
 
     private var listener: OnListFragmentInteractionListener? = null
 
-    private val allNotes = listOf(
+    private val allNotes = mutableListOf(
         Note("qew", "qwer", mutableListOf("tag1")),
         Note("qehgvhjw", "qwehgyjr", mutableListOf("tag1", "tag2"))
     )
@@ -34,14 +37,15 @@ class RecordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 //      TODO  context.getSharedPreferences()
-        val view = inflater.inflate(R.layout.fragment_record_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_note_list, container, false)
 
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = LinearLayoutManager(context)
-                listAdapter = MyRecordRecyclerViewAdapter(
-                    allNotes.toMutableList(), listener
-                )
+                listAdapter =
+                    MyNoteRecyclerViewAdapter(
+                        allNotes.toMutableList(), listener
+                    )
                 adapter = listAdapter
                 addItemDecoration(
                     DividerItemDecoration(
@@ -71,6 +75,18 @@ class RecordFragment : Fragment() {
         } ?: listAdapter?.setTag(allNotes)
     }
 
+    private fun setNote(position: Int, note: Note) {
+        if (note.title == "") {
+            note.title = note.date.format(formatter)
+        }
+        if (position == -1) {
+            allNotes.add(note)
+        } else {
+            allNotes[position].update(note)
+        }
+
+    }
+
     override fun onDetach() {
         super.onDetach()
         listener = null
@@ -86,7 +102,7 @@ class RecordFragment : Fragment() {
                 NOTE_REQUEST -> {
                     val position = data.getIntExtra(POSITION_KEY, -1)
                     val note = data.getParcelableExtra<Note>(NOTE_KEY)!!
-                    listAdapter?.setNote(position, note)
+                    setNote(position, note)
                     setNoteTag(curTag)
                 }
             }
@@ -96,5 +112,6 @@ class RecordFragment : Fragment() {
 }
 
 fun createResultForRecordFragment(position: Int, note: Note): Intent {
-    return Intent().putExtra(NOTE_KEY, note).putExtra(POSITION_KEY, position)
+    return Intent().putExtra(NOTE_KEY, note).putExtra(
+        POSITION_KEY, position)
 }

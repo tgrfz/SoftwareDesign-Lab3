@@ -1,19 +1,20 @@
-package com.example.softwaredesign_lab3
+package com.example.softwaredesign_lab3.notes
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Note
-import com.example.softwaredesign_lab3.RecordFragment.OnListFragmentInteractionListener
-import kotlinx.android.synthetic.main.fragment_record.view.*
+import com.example.softwaredesign_lab3.notes.RecordFragment.OnListFragmentInteractionListener
+import kotlinx.android.synthetic.main.fragment_note.view.*
 import java.time.format.DateTimeFormatter
 
-class MyRecordRecyclerViewAdapter(
+class MyNoteRecyclerViewAdapter(
     private val mValues: MutableList<Note>,
     private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyRecordRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder>() {
 
     private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
     private val mOnClickListener: View.OnClickListener
@@ -33,23 +34,9 @@ class MyRecordRecyclerViewAdapter(
         notifyDataSetChanged()
     }
 
-    fun setNote(position: Int, note: Note) {
-        if (note.title == "") {
-            note.title = note.date.format(formatter)
-        }
-        if (position == -1) {
-            mValues.add(note)
-            notifyDataSetChanged()
-        } else {
-            mValues[position].update(note)
-            notifyItemChanged(position)
-        }
-
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_record, parent, false)
+            .inflate(R.layout.fragment_note, parent, false)
         return ViewHolder(view)
     }
 

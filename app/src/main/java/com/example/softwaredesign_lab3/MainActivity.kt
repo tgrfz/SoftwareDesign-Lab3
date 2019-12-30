@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat
 import com.example.softwaredesign_lab3.alltags.AllTagFragment
 import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.model.Tag
+import com.example.softwaredesign_lab3.notes.RecordFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val NOTE_REQUEST = 42

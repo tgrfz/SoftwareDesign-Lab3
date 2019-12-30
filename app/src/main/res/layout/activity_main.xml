@@ -28,10 +28,10 @@
 
             <fragment
                 android:id="@+id/notes_fragment"
-                android:name="com.example.softwaredesign_lab3.RecordFragment"
+                android:name="com.example.softwaredesign_lab3.notes.RecordFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_record_list" />
+                tools:layout="@layout/fragment_note_list" />
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
