@@ -36,9 +36,7 @@ class RecordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        model = activity?.run {
-            ViewModelProviders.of(this)[NoteListViewModel::class.java]
-        } ?: throw Exception("Invalid Activity")
+        model = ViewModelProviders.of(requireActivity())[NoteListViewModel::class.java]
         allNotes = model.getNotes().value!!
         model.getNotes().observe(
             this,
@@ -54,7 +52,7 @@ class RecordFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 listAdapter =
                     MyNoteRecyclerViewAdapter(
-                        allNotes.toMutableList(), listener
+                        allNotes.toMutableList(), listener, ::onDelete
                     )
                 adapter = listAdapter
                 addItemDecoration(

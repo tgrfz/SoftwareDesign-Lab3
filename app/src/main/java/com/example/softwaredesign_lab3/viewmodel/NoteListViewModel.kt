@@ -1,22 +1,20 @@
 package com.example.softwaredesign_lab3.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.softwaredesign_lab3.App
 import com.example.softwaredesign_lab3.model.Note
-import java.time.LocalDateTime
 
-class NoteListViewModel : ViewModel() {
-    private val notes: MutableLiveData<MutableList<Note>> by lazy {
-        MutableLiveData<MutableList<Note>>(
-            mutableListOf(
-                Note("qew", "qwer", mutableListOf("tag1"), LocalDateTime.of(2020, 1, 1, 12, 12)),
-                Note("qehgvhjw", "qwehgyjr", mutableListOf("tag1", "tag2"))
-            )
-        )
-    }
+class NoteListViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun notifyObserver() {
+    private val storage by lazy { getApplication<App>().storage }
+    private val notes: MutableLiveData<MutableList<Note>> =
+        MutableLiveData(storage.getNotes().toMutableList())
+
+    fun onChange() {
+        storage.saveNotes(notes.value!!)
         notes.value = notes.value
     }
 
@@ -25,12 +23,19 @@ class NoteListViewModel : ViewModel() {
     }
 
     fun updateNote(note: Note) {
-        val oldNote = notes.value?.find { n -> n.date == note.date }
-        if (oldNote != null) {
-            notes.value!![notes.value!!.indexOf(oldNote)] = note
+        val oldNoteId = notes.value?.indexOfFirst { it.date == note.date }
+        if (oldNoteId != null && oldNoteId != -1) {
+            notes.value!![oldNoteId] = note
         } else {
             notes.value!!.add(note)
         }
-        notifyObserver()
+        onChange()
+    }
+
+    fun deleteNote(note: Note) {
+        notes.value!!.removeIf {
+            it.date == note.date
+        }
+        onChange()
     }
 }
