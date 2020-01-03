@@ -6,10 +6,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.softwaredesign_lab3.alltags.AllTagFragment
 import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.model.Tag
 import com.example.softwaredesign_lab3.notes.RecordFragment
+import com.example.softwaredesign_lab3.viewmodel.NoteListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 private const val NOTE_REQUEST = 42
@@ -21,7 +24,7 @@ class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteracti
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var toolbar = findViewById<Toolbar>(R.id.app_bar_main)
+        val toolbar = findViewById<Toolbar>(R.id.app_bar_main)
 
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
