@@ -8,23 +8,33 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.softwaredesign_lab3.NoteActivity
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Tag
+import com.example.softwaredesign_lab3.viewmodel.TagListViewModel
 
 class TagFragment : Fragment() {
 
     private var listAdapter: MyTagRecyclerViewAdapter? = null
-    private lateinit var noteActivity: NoteActivity
-
     private var listener: OnListFragmentInteractionListener? = null
-    //if (this@TagFragment.context?.resources?.getResourceEntryName((parentView as View).id) == "main_drawer") {
+    private lateinit var allTags: List<Tag>
+    private lateinit var model: TagListViewModel
 
-private val allTags = listOf("tag1", "tag2").map { Tag(it, false) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        model = ViewModelProviders.of(requireActivity())[TagListViewModel::class.java]
+        allTags = model.getTags().value!!.map { Tag(it, false) }
+        model.getTags().observe(
+            this,
+            Observer<MutableList<String>> { tags ->
+                allTags = tags.map { Tag(it, false) }
+            })
+
         val view = inflater.inflate(R.layout.fragment_tag_list, container, false)
 
         if (view is RecyclerView) {
@@ -32,7 +42,7 @@ private val allTags = listOf("tag1", "tag2").map { Tag(it, false) }
                 layoutManager = LinearLayoutManager(context)
                 listAdapter =
                     MyTagRecyclerViewAdapter(
-                        allTags.toMutableList(),
+                        allTags,
                         listener
                     )
                 adapter = listAdapter
@@ -49,8 +59,7 @@ private val allTags = listOf("tag1", "tag2").map { Tag(it, false) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        noteActivity = context as NoteActivity
-        listener = context
+        listener = context as NoteActivity
     }
 
     override fun onDetach() {

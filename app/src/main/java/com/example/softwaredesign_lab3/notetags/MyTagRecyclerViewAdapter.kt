@@ -11,7 +11,7 @@ import com.example.softwaredesign_lab3.model.Tag
 import kotlinx.android.synthetic.main.fragment_tag.view.*
 
 class MyTagRecyclerViewAdapter(
-    private val mValues: MutableList<Tag>,
+    private val mValues: List<Tag>,
     private val mListener: TagFragment.OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<MyTagRecyclerViewAdapter.ViewHolder>() {
 

@@ -8,21 +8,33 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Tag
+import com.example.softwaredesign_lab3.viewmodel.TagListViewModel
 
 class AllTagFragment : Fragment() {
 
     private var listAdapter: MyAllTagRecyclerViewAdapter? = null
-
     private var listener: OnListFragmentInteractionListener? = null
+    private lateinit var model: TagListViewModel
+    private lateinit var tagList: MutableList<Tag>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        model = ViewModelProviders.of(requireActivity())[TagListViewModel::class.java]
+        tagList = model.getTags().value!!.map { Tag(it, false) }.toMutableList()
+        model.getTags().observe(
+            this,
+            Observer<MutableList<String>> { tags ->
+                tagList = tags.map { Tag(it, false) }.toMutableList()
+            })
+
         val view = inflater.inflate(R.layout.fragment_all_tag_list, container, false)
-        val tagList = listOf("tag1", "tag2").map { Tag(it, false) }.toMutableList()
         tagList.add(0, Tag(null, true))
         if (view is RecyclerView) {
             with(view) {
