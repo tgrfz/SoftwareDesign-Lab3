@@ -24,7 +24,7 @@ class TagListViewModel(application: Application) : AndroidViewModel(application)
 
     fun addTag(tag: String): Boolean {
         val sameTag = tags.value?.indexOfFirst { it == tag }
-        if (sameTag != -1) {
+        if (sameTag == null || sameTag == -1) {
             return false
         }
         tags.value!!.add(tag)

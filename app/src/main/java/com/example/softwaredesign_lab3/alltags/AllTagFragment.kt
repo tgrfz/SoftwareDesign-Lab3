@@ -65,11 +65,9 @@ class AllTagFragment : Fragment() {
     }
 
     private fun onDelete(tag: String?) {
-        if (tag != null) {
-            model.deleteTag(tag)
-        } else {
-            Toast.makeText(activity, "You can't do it.", Toast.LENGTH_LONG).show()
-        }
+        tag?.let {
+            model.deleteTag(it)
+        } ?: Toast.makeText(activity, "You can't do it.", Toast.LENGTH_LONG).show()
     }
 
 
