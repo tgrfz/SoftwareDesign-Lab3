@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:orderInCategory="10"
+        android:title="@string/sort_by">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/menuSortByTitle"
+                    android:orderInCategory="10"
+                    android:title="@string/title" />
+                <item
+                    android:id="@+id/menuSortByTitleDesc"
+                    android:orderInCategory="20"
+                    android:title="@string/title_descending" />
+                <item
+                    android:id="@+id/menuSortByDate"
+                    android:orderInCategory="30"
+                    android:title="@string/date" />
+                <item
+                    android:id="@+id/menuSortByDateDesc"
+                    android:orderInCategory="40"
+                    android:title="@string/date_descending" />
+            </group>
+        </menu>
+    </item>
+</menu>

@@ -7,4 +7,9 @@
     <string name="drawer_open">Drawer Opened</string>
     <string name="drawer_close">Drawer Closed</string>
     <string name="search">Search</string>
+    <string name="sort_by">Sort by</string>
+    <string name="title">Title</string>
+    <string name="title_descending">Title (descending)</string>
+    <string name="date">Date</string>
+    <string name="date_descending">Date (descending)</string>
 </resources>

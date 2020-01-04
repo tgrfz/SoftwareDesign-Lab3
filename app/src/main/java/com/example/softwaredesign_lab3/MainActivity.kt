@@ -2,6 +2,8 @@ package com.example.softwaredesign_lab3
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -30,8 +32,7 @@ class MainActivity : AppCompatActivity(), NoteFragment.OnListFragmentInteraction
         val toolbar = findViewById<Toolbar>(R.id.app_bar_main)
 
         setSupportActionBar(toolbar)
-        val actionBar = supportActionBar
-        actionBar?.title = "All notes"
+        supportActionBar?.title = "All notes"
 
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
             this,
@@ -50,6 +51,15 @@ class MainActivity : AppCompatActivity(), NoteFragment.OnListFragmentInteraction
                 text.toString()
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return (notes_fragment as NoteFragment).onSort(item.itemId)
     }
 
     fun onAddClick(view: View) {

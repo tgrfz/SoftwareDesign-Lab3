@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Note
-import com.example.softwaredesign_lab3.notes.RecordFragment.OnListFragmentInteractionListener
+import com.example.softwaredesign_lab3.notes.NoteFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_note.view.*
 import java.time.format.DateTimeFormatter
 
@@ -54,7 +54,19 @@ class MyNoteRecyclerViewAdapter(
 
     override fun getItemCount(): Int = mValues.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    fun setSortType(type: Int): Boolean {
+        when (type) {
+            R.id.menuSortByDateDesc -> mValues.sortByDescending { it.date }
+            R.id.menuSortByDate -> mValues.sortBy { it.date }
+            R.id.menuSortByTitleDesc -> mValues.sortByDescending { it.title }
+            R.id.menuSortByTitle -> mValues.sortBy { it.title }
+            else -> return false
+        }
+        notifyDataSetChanged()
+        return true
+    }
+
+    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView), View.OnCreateContextMenuListener {
         val mTitleView: TextView = mView.title
         val mDateView: TextView = mView.date
         val mTagsView: TextView = mView.tags

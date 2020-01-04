@@ -88,6 +88,10 @@ class NoteFragment : Fragment() {
         } ?: listAdapter?.setTag(allNotes.filter { it.title.contains(str) })
     }
 
+    fun onSort(type: Int): Boolean {
+        return listAdapter?.setSortType(type) ?: false
+    }
+
     override fun onDetach() {
         super.onDetach()
         listener = null
