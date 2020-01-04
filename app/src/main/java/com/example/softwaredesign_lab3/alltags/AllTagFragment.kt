@@ -28,14 +28,16 @@ class AllTagFragment : Fragment() {
 
         model = ViewModelProviders.of(requireActivity())[TagListViewModel::class.java]
         tagList = model.getTags().value!!.map { Tag(it, false) }.toMutableList()
+        tagList.add(0, Tag(null, true))
         model.getTags().observe(
             this,
             Observer<MutableList<String>> { tags ->
                 tagList = tags.map { Tag(it, false) }.toMutableList()
+                tagList.add(0, Tag(null, true))
+                listAdapter?.update(tagList)
             })
 
         val view = inflater.inflate(R.layout.fragment_all_tag_list, container, false)
-        tagList.add(0, Tag(null, true))
         if (view is RecyclerView) {
             with(view) {
                 layoutManager = LinearLayoutManager(context)
@@ -48,6 +50,15 @@ class AllTagFragment : Fragment() {
             }
         }
         return view
+    }
+
+    fun addTag(tag: String) {
+        if (tag == "") {
+
+        }
+        if (!model.addTag(tag)) {
+
+        }
     }
 
     override fun onAttach(context: Context) {

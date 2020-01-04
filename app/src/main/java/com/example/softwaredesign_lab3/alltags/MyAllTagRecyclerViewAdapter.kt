@@ -28,6 +28,12 @@ class MyAllTagRecyclerViewAdapter(
         }
     }
 
+    fun update(newTags: List<Tag>) {
+        mValues.clear()
+        mValues.addAll(newTags)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_all_tag, parent, false)
