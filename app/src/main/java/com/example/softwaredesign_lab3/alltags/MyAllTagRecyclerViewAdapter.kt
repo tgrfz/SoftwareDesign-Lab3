@@ -1,6 +1,7 @@
 package com.example.softwaredesign_lab3.alltags
 
 import android.graphics.Color
+import android.view.ContextMenu
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Tag
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_tag.view.*
 
 class MyAllTagRecyclerViewAdapter(
     private val mValues: MutableList<Tag>,
-    private val mListener: AllTagFragment.OnListFragmentInteractionListener?
+    private val mListener: AllTagFragment.OnListFragmentInteractionListener?,
+    private val mDeleteListener: (String?) -> Unit
 ) : RecyclerView.Adapter<MyAllTagRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
@@ -53,7 +54,22 @@ class MyAllTagRecyclerViewAdapter(
 
     override fun getItemCount(): Int = mValues.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
+    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView), View.OnCreateContextMenuListener {
         val mTagView: TextView = mView.item_tag
+
+        init {
+            mView.setOnCreateContextMenuListener(this)
+        }
+
+        override fun onCreateContextMenu(
+            menu: ContextMenu?,
+            v: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
+        ) {
+            menu!!.add("Delete").setOnMenuItemClickListener {
+                mDeleteListener(mValues[adapterPosition].name)
+                true
+            }
+        }
     }
 }

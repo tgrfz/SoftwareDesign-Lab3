@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Tag
 import com.example.softwaredesign_lab3.viewmodel.TagListViewModel
@@ -44,7 +46,8 @@ class AllTagFragment : Fragment() {
                 listAdapter =
                     MyAllTagRecyclerViewAdapter(
                         tagList,
-                        listener
+                        listener,
+                        ::onDelete
                     )
                 adapter = listAdapter
             }
@@ -60,6 +63,15 @@ class AllTagFragment : Fragment() {
 
         }
     }
+
+    private fun onDelete(tag: String?) {
+        if (tag != null) {
+            model.deleteTag(tag)
+        } else {
+            Toast.makeText(activity, "You can't do it.", Toast.LENGTH_LONG).show()
+        }
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
