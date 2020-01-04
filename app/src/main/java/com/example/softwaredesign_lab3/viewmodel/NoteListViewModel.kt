@@ -27,7 +27,7 @@ class NoteListViewModel(application: Application) : AndroidViewModel(application
         if (oldNoteId != null && oldNoteId != -1) {
             notes.value!![oldNoteId] = note
         } else {
-            notes.value!!.add(note)
+            notes.value!!.add(0, note)
         }
         onChange()
     }
