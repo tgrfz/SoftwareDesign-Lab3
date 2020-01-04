@@ -59,7 +59,11 @@ class TagFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener = context as NoteActivity
+        if (context is OnListFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString().plus(" must implement OnListFragmentInteractionListener"))
+        }
     }
 
     override fun onDetach() {

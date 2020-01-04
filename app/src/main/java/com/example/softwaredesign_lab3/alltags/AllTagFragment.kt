@@ -57,10 +57,10 @@ class AllTagFragment : Fragment() {
 
     fun addTag(tag: String) {
         if (tag == "") {
-
+            Toast.makeText(activity, "You can't add an empty tag.", Toast.LENGTH_LONG).show()
         }
         if (!model.addTag(tag)) {
-
+            Toast.makeText(activity, "This tag already exists.", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -78,7 +78,7 @@ class AllTagFragment : Fragment() {
         if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+            throw RuntimeException(context.toString().plus(" must implement OnListFragmentInteractionListener"))
         }
     }
 

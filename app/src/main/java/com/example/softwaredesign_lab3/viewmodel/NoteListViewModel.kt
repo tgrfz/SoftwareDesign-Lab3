@@ -13,7 +13,7 @@ class NoteListViewModel(application: Application) : AndroidViewModel(application
     private val notes: MutableLiveData<MutableList<Note>> =
         MutableLiveData(storage.getNotes().toMutableList())
 
-    fun onChange() {
+    private fun onChange() {
         storage.saveNotes(notes.value!!)
         notes.value = notes.value
     }

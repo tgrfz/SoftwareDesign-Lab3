@@ -70,7 +70,7 @@ class RecordFragment : Fragment() {
         if (context is OnListFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+            throw RuntimeException(context.toString().plus(" must implement OnListFragmentInteractionListener"))
         }
 
     }
@@ -87,7 +87,7 @@ class RecordFragment : Fragment() {
         listener = null
     }
 
-    fun onDelete(note: Note) {
+    private fun onDelete(note: Note) {
         model.deleteNote(note)
     }
 
