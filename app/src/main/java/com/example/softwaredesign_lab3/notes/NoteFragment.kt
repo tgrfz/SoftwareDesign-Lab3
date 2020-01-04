@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.viewmodel.NoteListViewModel
-import java.lang.Exception
 import java.time.format.DateTimeFormatter
 
 private const val NOTE_KEY = "note"
@@ -86,6 +85,10 @@ class RecordFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    fun onDelete(note: Note) {
+        model.deleteNote(note)
     }
 
     interface OnListFragmentInteractionListener {

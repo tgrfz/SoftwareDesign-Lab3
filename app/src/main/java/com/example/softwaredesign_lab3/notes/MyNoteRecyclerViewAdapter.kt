@@ -1,25 +1,23 @@
 package com.example.softwaredesign_lab3.notes
 
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.softwaredesign_lab3.R
 import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.notes.RecordFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_note.view.*
 import java.time.format.DateTimeFormatter
 
+
 class MyNoteRecyclerViewAdapter(
     private val mValues: MutableList<Note>,
-    private val mListener: OnListFragmentInteractionListener?
+    private val mListener: OnListFragmentInteractionListener?,
+    private val mDeleteListener: (Note) -> Unit
 ) : RecyclerView.Adapter<MyNoteRecyclerViewAdapter.ViewHolder>() {
 
     private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
     private val mOnClickListener: View.OnClickListener
-
-    private var curTag: String? = null
 
     init {
         mOnClickListener = View.OnClickListener { v ->
@@ -60,5 +58,20 @@ class MyNoteRecyclerViewAdapter(
         val mTitleView: TextView = mView.title
         val mDateView: TextView = mView.date
         val mTagsView: TextView = mView.tags
+
+        init {
+            mView.setOnCreateContextMenuListener(this)
+        }
+
+        override fun onCreateContextMenu(
+            menu: ContextMenu?,
+            v: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
+        ) {
+            menu!!.add("Delete").setOnMenuItemClickListener {
+                mDeleteListener(mValues[adapterPosition])
+                true
+            }
+        }
     }
 }
