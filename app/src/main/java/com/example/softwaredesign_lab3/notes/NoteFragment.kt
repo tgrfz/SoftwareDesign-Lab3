@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter
 private const val NOTE_KEY = "note"
 private const val NOTE_REQUEST = 42
 
-class RecordFragment : Fragment() {
+class NoteFragment : Fragment() {
 
     private val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
     private var listAdapter: MyNoteRecyclerViewAdapter? = null
@@ -80,6 +80,12 @@ class RecordFragment : Fragment() {
         tag?.let {
             listAdapter?.setTag(allNotes.filter { tag in it.tags })
         } ?: listAdapter?.setTag(allNotes)
+    }
+
+    fun onSearch(str: String) {
+        curTag?.let { curTag ->
+            listAdapter?.setTag(allNotes.filter { curTag in it.tags && it.title.contains(str) })
+        } ?: listAdapter?.setTag(allNotes.filter { it.title.contains(str) })
     }
 
     override fun onDetach() {

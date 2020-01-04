@@ -6,4 +6,5 @@
     <string name="tags">Tags</string>
     <string name="drawer_open">Drawer Opened</string>
     <string name="drawer_close">Drawer Closed</string>
+    <string name="search">Search</string>
 </resources>

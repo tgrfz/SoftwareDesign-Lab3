@@ -3,7 +3,6 @@ package com.example.softwaredesign_lab3
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -11,16 +10,17 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.widget.doOnTextChanged
 import com.example.softwaredesign_lab3.alltags.AllTagFragment
 import com.example.softwaredesign_lab3.model.Note
 import com.example.softwaredesign_lab3.model.Tag
-import com.example.softwaredesign_lab3.notes.RecordFragment
+import com.example.softwaredesign_lab3.notes.NoteFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 private const val NOTE_REQUEST = 42
 
-class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteractionListener,
+class MainActivity : AppCompatActivity(), NoteFragment.OnListFragmentInteractionListener,
     AllTagFragment.OnListFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteracti
         drawerToggle.isDrawerIndicatorEnabled = true
         main_drawer.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
+
+        search_input.doOnTextChanged { text, _, _, _ ->
+            (this.notes_fragment as NoteFragment).onSearch(
+                text.toString()
+            )
+        }
     }
 
     fun onAddClick(view: View) {
@@ -77,8 +83,10 @@ class MainActivity : AppCompatActivity(), RecordFragment.OnListFragmentInteracti
     }
 
     override fun onListFragmentClick(item: Tag) {
-        (notes_fragment as RecordFragment).setNoteTag(item.name)
+        (notes_fragment as NoteFragment).setNoteTag(item.name)
         supportActionBar?.title = item.name ?: "All notes"
+        this.search_input.setText("")
+        this.search_input.clearFocus()
         main_drawer.closeDrawer(GravityCompat.START)
     }
 

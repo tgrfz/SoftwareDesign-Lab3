@@ -26,9 +26,25 @@
                 android:minHeight="?attr/actionBarSize"
                 app:titleTextColor="@color/white" />
 
+            <EditText
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="16dp"
+                android:hint="@string/search"
+                android:inputType="text"
+                android:background="@android:color/transparent"
+                android:importantForAutofill="no" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider" />
+
             <fragment
                 android:id="@+id/notes_fragment"
-                android:name="com.example.softwaredesign_lab3.notes.RecordFragment"
+                android:name="com.example.softwaredesign_lab3.notes.NoteFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout="@layout/fragment_note_list" />
