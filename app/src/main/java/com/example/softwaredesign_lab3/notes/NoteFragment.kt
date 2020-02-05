@@ -84,8 +84,8 @@ class NoteFragment : Fragment() {
 
     fun onSearch(str: String) {
         curTag?.let { curTag ->
-            listAdapter?.setTag(allNotes.filter { curTag in it.tags && it.title.contains(str) })
-        } ?: listAdapter?.setTag(allNotes.filter { it.title.contains(str) })
+            listAdapter?.setTag(allNotes.filter { curTag in it.tags && it.title.contains(str, true) })
+        } ?: listAdapter?.setTag(allNotes.filter { it.title.contains(str, true) })
     }
 
     fun onSort(type: Int): Boolean {

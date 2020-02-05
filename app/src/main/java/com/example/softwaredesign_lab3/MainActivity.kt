@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(), NoteFragment.OnListFragmentInteraction
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val toolbar = findViewById<Toolbar>(R.id.app_bar_main)
 
         setSupportActionBar(toolbar)
